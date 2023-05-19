@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Корзина{% endblock title %}
+
+{% block content %}
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Корзина</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="cart-table-container">
+                    <table class="table table-cart">
+                        <thead>
+                        <tr>
+                            <th class="product-col">Товар</th>
+                            <th class="price-col">Цена</th>
+                            <th class="qty-col">Количество</th>
+                            <th>Добавить/Удалить</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in cart %}
+                        <tr class="product-row">
+                            <td class="product-col">
+                                <figure class="product-image-container">
+                                    <a href="{% url 'catalog:product' item.product.id %}" class="product-image">
+                                        <img src="{{ item.product.image_set.first.image.url }}" alt="product">
+                                    </a>
+                                </figure>
+                                <h2 class="product-title">
+                                    <a href="">{{ item.product.name }}</a>
+                                </h2>
+                            </td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>
+                                <div>
+                                    <a href="{% url 'cart:cart_add' item.product.id %}" title="Edit product" class="btn-edit"><span class="sr-only">Add</span><i
+                                            class="icon-plus"></i></a>
+                                    <a href="{% url 'cart:cart_remove' item.product.id %}" title="Remove product" class="btn-remove"><span
+                                            class="sr-only">Remove</span></a>
+                                </div><!-- End .float-right -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="product-action-row">
+                            <td colspan="4" class="clearfix">
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <td colspan="4" class="clearfix">
+                                <div class="float-left">
+                                    <a href="" class="btn btn-outline-secondary">Продолжить покупки</a>
+                                </div><!-- End .float-left -->
+
+                                <div class="float-right">
+                                    <a href="" class="btn btn-outline-secondary btn-clear-cart">Очистить корзину</a>
+                                </div><!-- End .float-right -->
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- End .cart-table-container -->
+            </div><!-- End .col-lg-8 -->
+
+            <div class="col-lg-4">
+                <div class="cart-summary">
+                    <h3>Заказ</h3>
+
+                    <form action="" method="post" class="order-form">
+
+                        <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
+                    </form>
+
+                </div><!-- End .cart-summary -->
+            </div><!-- End .col-lg-4 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</main><!-- End .main -->
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Логин{% endblock title %}
+
+{% block content %}
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Логин</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="heading">
+                            <h2 class="title">Вход</h2>
+                            <p>Если у Вас есть учетная запись, войдите.</p>
+                        </div><!-- End .heading -->
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div>
+                                {% for field in form %}
+                                    <div style="display: flex; justify-content: space-between; margin-top:20px">
+                                        {{ field.label }}
+                                        <div style="margin-right: 200px">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary">Войти</button>
+                                <a href="#" class="forget-pass"> Забыли пароль?</a>
+                            </div><!-- End .form-footer -->
+                        </form>
+                    </div><!-- End .col-md-6 -->
+                    <div class="col-md-6">
+                        <div class="heading">
+                            <h2 class="title">Регистрация</h2>
+                            <p>Если у Вас нет учетной записи, <a href="">зарегистрируйтесь</a></p>
+                        </div><!-- End .heading -->
+                    </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </main><!-- End .main -->
+{% endblock content %}

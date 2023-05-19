@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock title %}
+
+{% block content %}
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Регистрация</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-10">
+                        <div class="heading">
+                            <h2 class="title">Создать учетную запись</h2>
+                            <p></p>
+                        </div><!-- End .heading -->
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div>
+                                {% for field in form %}
+                                <div class="form-group row">
+                                    <label class="col-sm-4">{{ field.label }}</label>
+                                    <div class="col-sm-8">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary">Создать учетную запись</button>
+                            </div><!-- End .form-footer -->
+                        </form>
+                    </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </main><!-- End .main -->
+{% endblock content %}

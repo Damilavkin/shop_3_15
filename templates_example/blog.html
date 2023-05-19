@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог{% endblock title %}
+
+{% block content %}
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">блог</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-9">
+                        <article class="entry single">
+                            <div class="entry-media">
+                                <div class="entry-slider owl-carousel owl-theme">
+
+                                    <img src="" alt="Post">
+
+                                </div><!-- End .entry-slider -->
+                            </div><!-- End .entry-media -->
+
+                            <div class="entry-body">
+
+                                <h2 class="entry-title">
+                                    Заголовок
+                                </h2>
+
+                                <div class="entry-meta">
+                                    <span><i class="icon-calendar"></i>Дата публикации</span>
+                                    <span><i class="icon-user"></i> <a href="#">Автор</a></span>
+                                    <span><i class="icon-folder-open"></i>
+                                        Категория
+                                    </span>
+                                </div><!-- End .entry-meta -->
+
+                                <div class="entry-content">
+                                     Текст
+                                </div><!-- End .entry-content -->
+
+                                <div class="entry-share">
+                                    <h3>
+                                        <i class="icon-forward"></i>
+                                        Поделиться
+                                    </h3>
+
+                                    <div class="social-icons">
+                                        <a href="#" class="social-icon social-facebook" target="_blank" title="Facebook">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="#" class="social-icon social-twitter" target="_blank" title="Twitter">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="social-icon social-linkedin" target="_blank" title="Linkedin">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="#" class="social-icon social-gplus" target="_blank" title="Google +">
+                                            <i class="fab fa-google-plus-g"></i>
+                                        </a>
+                                        <a href="#" class="social-icon social-mail" target="_blank" title="Email">
+                                            <i class="icon-mail-alt"></i>
+                                        </a>
+                                    </div><!-- End .social-icons -->
+                                </div><!-- End .entry-share -->
+
+                            </div><!-- End .entry-body -->
+                        </article><!-- End .entry -->
+
+                    </div><!-- End .col-lg-9 -->
+
+
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+
+        </main><!-- End .main -->
+{% endblock content %}

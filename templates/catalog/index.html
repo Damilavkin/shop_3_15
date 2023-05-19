@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock title %}
+
+{% block content %}
+<main class="home main">
+    <section class="svg-container svg-bottom">
+        <div class="home-slider owl-carousel owl-carousel-lazy owl-theme">
+            {% for element in slider_list %}
+            <div class="home-slide" class="owl-lazy">
+                <img class="owl-lazy" src="{% static 'images/lazy.png' %}" data-src="" alt="slider image">
+                {% if forloop.counter|divisibleby:2 %}
+                    <img src="{% static 'images/slider/slide2.jpg' %}">
+                {% else %}
+                    <img src="{% static 'images/slider/slide1.jpg' %}">
+                {% endif %}
+                <div class="home-slide-content">
+                    <div class="container">
+                        <a href="" class="slide-image">
+                            <img src="{{ element.image_set.first.image.url }}" style="border-radius:200px" >
+                        </a>
+                        <div class="slide-details">
+                            <a href="" class="product-title" style="border-radius:200px; margin-left:10%">{{ element.name }}</a>
+                            <div class="product-details">
+                                <div class="sales-panel">
+                                    <div class="sales-info" style="margin-left:10%">
+                                        <h4>купить сейчас</h4>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="product-price">{{ element.price }}</span>
+                                    </div>
+                                </div>
+                                <a href="{% url 'cart:cart'  element.id %}"><button class="btn">КУПИТЬ</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <section class="container mb-2" style="position : relative;">
+        <div class="product-panel">
+            <h2 class="section-title">ИЗБРАННЫЕ ТОВАРЫ</h2>
+            <div class="row row-sm w-100">
+                {% for element in chosen_list %}
+                <div class="col-6 col-md-4">
+                    <div class="product-default inner-quickview inner-icon">
+                        <figure>
+                            <a href="">
+                                <img src="{{ element.image_set.first.image.url }}">
+                            </a>
+                            <div class="btn-icon-group">
+                                <a href=""><button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button></a>
+                            </div>
+
+                        </figure>
+                        <div class="product-details">
+                            <div class="category-list">
+                                <a href="" class="product-category">{{ element.category }}</a>
+                            </div>
+                            <h2 class="product-title">
+                                <a href="">{{ element.name }}</a>
+                            </h2>
+                            <div class="price-box">
+                                <span class="product-price">{{ element.price }}</span>
+                            </div><!-- End .price-box -->
+                        </div><!-- End .product-details -->
+                    </div>
+                </div>
+                {% endfor %}
+    </section>
+</main><!-- End .main -->
+{% endblock content %}
+

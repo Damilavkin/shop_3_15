@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mptt_tags %}
+
+{% block title %}Каталог{% endblock title %}
+
+{% block content %}
+<main class="main">
+
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">КАТАЛОГ</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <nav class="toolbox mb-4">
+                    <div class="toolbox-left">
+                        <div class="toolbox-item toolbox-sort">
+                                <form action="" method="get" class="form-inline">
+                                    <div class="form-group mx-sm-3">
+                                        <select name="order" class="form-control">
+                                            <option value="?">По умолчанию</option>
+                                            <option value="price">По цене(🠗)</option>
+                                            <option value="-price">По цене(🠕)</option>
+                                        </select>
+                                    </div>
+                                        <input type="submit" value="Сортировать" class="btn btn-primary">
+                                </form>
+                        </div><!-- End .toolbox-item -->
+                    </div><!-- End .toolbox-left -->
+
+                </nav>
+
+                <div class="row row-sm">
+                        {% for product in page_obj %}
+                        <div class="col-6 col-md-4 col-lg-3">
+                        <div class="product-default inner-quickview inner-icon">
+                            <figure>
+                                <a href="{% url 'catalog:product' product.id %}">
+                                    <img src="{{ product.image_set.first.image.url }}">
+                                </a>
+
+                                <div class="btn-icon-group">
+                                    <a href=""><button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button></a>
+                                </div>
+
+                            </figure>
+                            <div class="product-details">
+                                <div class="category-wrap">
+                                    <div class="category-list">
+                                        <a href="" class="product-category">{{ product.category }}</a>
+                                    </div>
+                                </div>
+                                <div class="product-title">
+                                    <a href="" title="" style="white-space: normal">{{ product.name }}</a>
+                                </div>
+                                <div class="price-box">
+                                    <span class="product-price">{{ product.price }}</span>
+                                </div><!-- End .price-box -->
+                            </div><!-- End .product-details -->
+                        </div>
+                    </div>
+                     {% endfor %}
+                </div>
+
+                <nav class="toolbox toolbox-pagination">
+                    <div class="pagination">
+                       <span class="step-links">
+                               {% if page_obj.has_previous %}
+                               <a href="?page=1&order={{ sort_order }}">&laquo; Начало|</a>
+                               <a href="?page={{ page_obj.previous_page_number }}&order={{ sort_order }}">Предыдущая|</a>
+                                {% endif %}
+
+                           <span class="current">
+                               Страница  {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                           </span>
+
+                                {% if page_obj.has_next %}
+                               <a href="?page={{ page_obj.next_page_number }}&order={{ sort_order }}">|Следующая</a>
+                               <a href="?page={{ page_obj.paginator.num_pages }}&order={{ sort_order }}">|Конец &raquo;</a>
+                                {% endif %}
+                       </span>
+                    </div>
+                </nav>
+            </div><!-- End .col-lg-9 -->
+
+            <aside class="sidebar-shop col-lg-3 order-lg-first">
+                <div class="sidebar-wrapper">
+                    <div class="widget">
+                        <h3 class="widget-title">
+                            <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true" aria-controls="widget-body-2">Категория</a>
+                        </h3>
+
+                        <div class="collapse show" id="widget-body-2">
+                            <div class="widget-body">
+                                <ul class="cat-list">
+                                    {% recursetree categories %}
+                                        <li class="ul-separate list-group">
+                                        {% if node.id == current_id %}
+                                        <a href="{% url 'catalog:catalog' node.id %}" style="color:red;">{{ node.name }}</a>
+                                        {% else %}
+                                        <a href="{% url 'catalog:catalog' %}">{{ node.name }}</a>
+                                        {% endif %}
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="children list-group-item">
+                                                {{ children }}
+                                            </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endrecursetree %}
+                                </ul>
+                            </div><!-- End .widget-body -->
+                        </div><!-- End .collapse -->
+
+                    </div><!-- End .widget -->
+                </div><!-- End .sidebar-wrapper -->
+            </aside><!-- End .col-lg-3 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</main><!-- End .main -->
+{% endblock content %}
