@@ -32,7 +32,7 @@ def cart_remove(request, product_id):
     return HttpResponseRedirect("/cart")
 
 
-def cart_clear(request, product_id):
+def cart_clear(request, product_id=None):
     cart = Cart(request)
     cart.clear()
     return HttpResponseRedirect("/cart")
@@ -52,7 +52,7 @@ def order(request):
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
-            cart_clear()
+            cart_clear(request)
             return HttpResponseRedirect(reverse('cart:order'), {'order': order})
         else:
             return render(request, 'cart/cart.html', {'form': form})

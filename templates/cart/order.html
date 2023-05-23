@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Заказ{% endblock title %}
+
+{% block content %}
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Заказ</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav>
+
+            <div class="container">
+                <h1>Thank you</h1>
+
+                <div class="row">
+
+                    <div class="col-lg-4">
+                        <div class="cart-summary">
+                            <h3>Номер Вашего заказа <strong>Номер</strong></h3>
+
+                            <h4>Статус: <strong>отправлен</strong></h4>
+
+                            <table class="table table-totals">
+                                <tbody>
+
+                                    <tr>
+                                        <td>Продукт</td>
+                                        <td>Количество</td>
+                                        <td>Цена</td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Итого</td>
+                                        <td>Сумма</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div><!-- End .cart-summary -->
+                    </div><!-- End .col-lg-4 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </main><!-- End .main -->
+{% endblock content %}

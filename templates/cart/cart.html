@@ -37,7 +37,7 @@
                                     </a>
                                 </figure>
                                 <h2 class="product-title">
-                                    <a href="">{{ item.product.name }}</a>
+                                    <a href="{% url 'catalog:product' item.product.id %}">{{ item.product.name }}</a>
                                 </h2>
                             </td>
                             <td>{{ item.price }}</td>
@@ -68,7 +68,7 @@
                                 </div><!-- End .float-left -->
 
                                 <div class="float-right">
-                                    <a href="" class="btn btn-outline-secondary btn-clear-cart">Очистить корзину</a>
+                                    <a href="{% url 'cart:cart_clear'%}" class="btn btn-outline-secondary btn-clear-cart">Очистить корзину</a>
                                 </div><!-- End .float-right -->
                             </td>
                         </tr>
@@ -81,8 +81,14 @@
                 <div class="cart-summary">
                     <h3>Заказ</h3>
 
-                    <form action="" method="post" class="order-form">
-
+                    <form action="{% url 'cart:order' %}" method="post" class="order-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {% if form.errors %}
+                        {% for error in form.errors %}
+                        <p>{{ error }}</p>>
+                        {% endfor %}
+                        {% endif %}
                         <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
                     </form>
 

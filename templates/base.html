@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load mptt_tags %}
+{% csrf_token %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,7 @@
     <meta name="author" content="SW-THEMES">
 
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/icons/GF.png' %}"/>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icons/Logo.png' %}"/>
     <script type="text/javascript">
         WebFontConfig = {
             google: { families: [ 'Open+Sans:300,400,600,700,800','Poppins:300,400,500,600,700' ] }
@@ -46,7 +47,7 @@
                                 <i class="icon-menu"></i>
                             </button>
                             <a href="{% url 'catalog:index' %}" class="logo">
-                                <h1>МО<span style="color: red;">ДА</span></h1>
+                                <h1>ЛА<span style="color: red;">ПА</span></h1>
                             </a>
                         </div>
 

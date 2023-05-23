@@ -105,7 +105,7 @@
                                         {% if node.id == current_id %}
                                         <a href="{% url 'catalog:catalog' node.id %}" style="color:red;">{{ node.name }}</a>
                                         {% else %}
-                                        <a href="{% url 'catalog:catalog' %}">{{ node.name }}</a>
+                                        <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
                                         {% endif %}
                                         {% if not node.is_leaf_node %}
                                             <ul class="children list-group-item">
