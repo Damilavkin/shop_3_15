@@ -53,8 +53,8 @@ def order(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart_clear(request)
-            return HttpResponseRedirect(reverse('cart:order'), {'order': order})
+            return render(request,'cart/order.html', {'order': order})
         else:
             return render(request, 'cart/cart.html', {'form': form})
     else:
-        return HttpResponseRedirect("/cart")
+            return HttpResponseRedirect('/cart')

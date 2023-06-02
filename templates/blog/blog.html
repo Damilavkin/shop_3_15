@@ -13,19 +13,21 @@
                     </ol>
                 </div><!-- End .container -->
             </nav>
-
+            {% for element in blog %}
             <div class="container">
                 <div class="row">
 
                     <div class="col-lg-9">
                         <article class="entry single">
+
                             <div class="entry-media">
                                 <div class="entry-slider owl-carousel owl-theme">
 
-                                    <img src="" alt="Post">
+                                    <img src="{{ element.image_set.first.image.url }}" alt="Post">
+
                                 </div><!-- End .entry-slider -->
                             </div><!-- End .entry-media -->
-                            {% for element in blog %}
+
                             <div class="entry-body">
 
                                 <h2 class="entry-title">
@@ -35,15 +37,13 @@
                                 <div class="entry-meta">
                                     <span><i class="icon-calendar"></i>{{ element.time_post|date:"d-m-y H:i" }}</span>
                                     <span><i class="icon-user"></i> <a href="#">{{ element.author }}</a></span>
-                                    <span><i class="icon-folder-open"></i>
-                                        Категория
-                                    </span>
+
                                 </div><!-- End .entry-meta -->
 
                                 <div class="entry-content">
                                      {{ element.body }}
                                 </div><!-- End .entry-content -->
-                                {% endfor %}
+
                                 <div class="entry-share">
                                     <h3>
                                         <i class="icon-forward"></i>
@@ -51,25 +51,17 @@
                                     </h3>
 
                                     <div class="social-icons">
-                                        <a href="#" class="social-icon social-facebook" target="_blank" title="Facebook">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a href="#" class="social-icon social-twitter" target="_blank" title="Twitter">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                        <a href="#" class="social-icon social-linkedin" target="_blank" title="Linkedin">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
-                                        <a href="#" class="social-icon social-gplus" target="_blank" title="Google +">
-                                            <i class="fab fa-google-plus-g"></i>
-                                        </a>
-                                        <a href="#" class="social-icon social-mail" target="_blank" title="Email">
-                                            <i class="icon-mail-alt"></i>
-                                        </a>
+                                        <a href="https://web.telegram.org/" target="_blank" class="social-icon"><i class="fab fa-Telegram-"></i>
+                                            <img src="{% static 'images/icons/Telega.png' %}"></a>
+                                        <a href="https://vk.com/" target="_blank" class="social-icon"><i class="fab fa-VK"></i>
+                                            <img src="{% static 'images/icons/vk-2.png' %}"></a>
+                                        <a href="https://mail.google.com/" target="_blank" class="social-icon"><i class="fab fa-Gmail"></i>
+                                            <img src="{% static 'images/icons/gmail.png' %}"></a>
                                     </div><!-- End .social-icons -->
                                 </div><!-- End .entry-share -->
 
                             </div><!-- End .entry-body -->
+
                         </article><!-- End .entry -->
 
                     </div><!-- End .col-lg-9 -->
@@ -77,6 +69,6 @@
 
                 </div><!-- End .row -->
             </div><!-- End .container -->
-
+            {% endfor %}
         </main><!-- End .main -->
 {% endblock content %}

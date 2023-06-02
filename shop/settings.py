@@ -127,6 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_USER = 'admin@localhost'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
 
-ADMINS = [('admin', 'admin@localhost')]
+
+ADMINS = [('admin', 'Gromasht@yandex.ru')]

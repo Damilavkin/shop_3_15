@@ -47,7 +47,7 @@
                                 <i class="icon-menu"></i>
                             </button>
                             <a href="{% url 'catalog:index' %}" class="logo">
-                                <h1>ЛА<span style="color: red;">ПА</span></h1>
+                                <h1>ЛА<span style="color: orange;">ПКА</span></h1>
                             </a>
                         </div>
 
@@ -63,11 +63,15 @@
                                         <ul>
                                             {% recursetree categories %}
                                                 <li class="ul-separate list-group">
-                                                    {{ node.name }}
-                                                    {% if not node.is_leaf_node %}
-                                                        <ul class="children list-group-item">
-                                                            {{ children }}
-                                                        </ul>
+                                                {% if node.id == current_id %}
+                                                <a href="{% url 'catalog:catalog' node.id %}" style="color:red;">{{ node.name }}</a>
+                                                {% else %}
+                                                <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
+                                                {% endif %}
+                                                {% if not node.is_leaf_node %}
+                                                    <ul class="children list-group-item">
+                                                        {{ children }}
+                                                    </ul>
                                                     {% endif %}
                                                 </li>
                                             {% endrecursetree %}
@@ -105,7 +109,7 @@
 
                             <div class="dropdown cart-dropdown">
                                 {% if cart|length %}
-                                <a href="" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <a href="{% url 'cart:cart' %}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i class="minicart-icon"></i>
                                     <span class="cart-count">{{ cart|length }}</span>
                                 </a>
@@ -165,13 +169,13 @@
                                     <ul>
                                         <li class="subwidget">
                                             <h4 class="subwidget-title">адрес</h4>
-                                            <a href="https://2gis.ru/khabarovsk/firm/4926341373759593?m=135.084279%2C48.463219%2F16.75">Россия, г. Хабаровск, ул. Пионерская, 1</a>
+                                            <a href="https://2gis.ru/khabarovsk/geo/4926447747614979">Россия, г. Хабаровск, ул. Уборевича, 58а</a>
                                         </li>
                                     </ul>
                                     <ul>
                                         <li class="subwidget">
                                             <h4 class="subwidget-title">телефон</h4>
-                                            <a href="#">(123) 456-7890</a>
+                                            <a href="#">+79841703437</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -186,7 +190,11 @@
                                             <li><a href="{% url 'catalog:index' %}">Главная</a></li>
                                             <li><a href="{% url 'catalog:catalog' %}">Каталог</a></li>
                                             <li><a href="{% url 'blog:blog' %}">Блог</a></li>
-                                            <li><a href="">Авторизация</a></li>
+                                            {% if user.is_authenticated %}
+                                            <li><a href=""></a></li>
+                                            {% else %}
+                                            <li><a href="{% url 'accounts:login' %}">Авторизация</a></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
                                 </div>
@@ -200,11 +208,15 @@
                                         <ul>
                                             {% recursetree categories %}
                                                 <li class="ul-separate list-group">
-                                                    {{ node.name }}
-                                                    {% if not node.is_leaf_node %}
-                                                        <ul class="children list-group-item">
-                                                            {{ children }}
-                                                        </ul>
+                                                {% if node.id == current_id %}
+                                                <a href="{% url 'catalog:catalog' node.id %}" style="color:red;">{{ node.name }}</a>
+                                                {% else %}
+                                                <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
+                                                {% endif %}
+                                                {% if not node.is_leaf_node %}
+                                                    <ul class="children list-group-item">
+                                                        {{ children }}
+                                                    </ul>
                                                     {% endif %}
                                                 </li>
                                             {% endrecursetree %}
@@ -217,13 +229,16 @@
                 </div>
                 <div class="footer-middle">
                     <div class="social-icons">
-                        <a href="#" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank" class="social-icon"><i class="fab fa-VK"></i></a>
-                        <a href="#" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://web.telegram.org/" target="_blank" class="social-icon"><i class="fab fa-Telegram-"></i>
+                            <img src="{% static 'images/icons/Telega.png' %}"></a>
+                        <a href="https://vk.com/" target="_blank" class="social-icon"><i class="fab fa-VK"></i>
+                            <img src="{% static 'images/icons/vk-2.png' %}"></a>
+                        <a href="https://mail.google.com/" target="_blank" class="social-icon"><i class="fab fa-Gmail"></i>
+                            <img src="{% static 'images/icons/gmail.png' %}"></a>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>Fogstream. © 2020. All Rights Reserved.</p>
+                    <p>Dmitry Milavkin. © 2023. All Rights Reserved.</p>
                 </div>
             </div>
         </footer><!-- End .footer -->
@@ -236,22 +251,35 @@
             <span class="mobile-menu-close"><i class="icon-retweet"></i></span>
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
-                    <li><a href="">ГЛАВНАЯ</a></li>
+                    <li><a href="{% url 'catalog:index' %}">ГЛАВНАЯ</a></li>
                     <li>
-                        <a href="">КАТАЛОГ</a>
+                        <a href="{% url 'catalog:catalog' %}">КАТАЛОГ</a>
                         <ul>
-                            <li><a href="">Раздел</a></li>
+                            {% recursetree categories %}
+                                <li class="ul-separate list-group">
+                                    {% if node.id == current_id %}
+                                    <a href="{% url 'catalog:catalog' node.id %}" style="color:red;">{{ node.name }}</a>
+                                    {% else %}
+                                    <a href="{% url 'catalog:catalog' node.id %}">{{ node.name }}</a>
+                                    {% endif %}
+
+                                </li>
+                            {% endrecursetree %}
                         </ul>
                     </li>
-                    <li><a href="">БЛОГ</a></li>
-                    <li><a href="">АВТОРИЗАЦИЯ</a></li>
+                    <li><a href="{% url 'blog:blog' %}">БЛОГ</a></li>
+                    {% if user.is_authenticated %}
+                                            <li><a href=""></a></li>
+                                            {% else %}
+                                            <li><a href="{% url 'accounts:login' %}">Авторизация</a></li>
+                                            {% endif %}
                 </ul>
             </nav><!-- End .mobile-nav -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>
+                <a href="https://ru-ru.facebook.com/" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
+                <a href="https://twitter.com/" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
+                <a href="https://www.instagram.com/" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->

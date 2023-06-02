@@ -64,7 +64,7 @@
                         <tr>
                             <td colspan="4" class="clearfix">
                                 <div class="float-left">
-                                    <a href="" class="btn btn-outline-secondary">Продолжить покупки</a>
+                                    <a href="{% url 'catalog:catalog' %}" class="btn btn-outline-secondary">Продолжить покупки</a>
                                 </div><!-- End .float-left -->
 
                                 <div class="float-right">
@@ -82,6 +82,7 @@
                     <h3>Заказ</h3>
 
                     <form action="{% url 'cart:order' %}" method="post" class="order-form">
+                        {% if user.is_authenticated %}
                         {% csrf_token %}
                         {{ form.as_p }}
                         {% if form.errors %}
@@ -90,7 +91,11 @@
                         {% endfor %}
                         {% endif %}
                         <p><input class="btn btn-block btn-sm btn-primary" type="submit" value="Оформить заказ"></p>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}"><input class="btn btn-block btn-sm btn-primary" value="Авторизоваться"></a>
+                        {% endif %}
                     </form>
+
 
                 </div><!-- End .cart-summary -->
             </div><!-- End .col-lg-4 -->
